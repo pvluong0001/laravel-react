@@ -16,8 +16,8 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            $table->timestamp('start_at')->useCurrent();
+            $table->timestamp('finish_at')->useCurrent();
             $table->tinyInteger('status')->default(0)->comment('0: Chưa bắt đầu, 1: Đang thực hiện, 2: Hoàn thành, 3: Hủy bỏ');
             $table->string('color')->default('#f1f1f1');
             $table->timestamps();

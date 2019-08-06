@@ -1,65 +1,41 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
+import { useTheme, CssBaseline } from '@material-ui/core'
+import Nav from './partials/Nav'
+import useStyles from './styles'
+import Menu from './partials/Menu'
+import Paper from '@material-ui/core/Paper'
+import clsx from 'clsx'
 
 const DefaultLayout = ({ component: Component, ...rest }) => {
+  const classes = useStyles()
+  const theme = useTheme()
+  const [open, setOpen] = React.useState(false)
+
+  function handleDrawerOpen () {
+    setOpen(true)
+  }
+
+  function handleDrawerClose () {
+    setOpen(false)
+  }
+
   return (
     <Route {...rest} render={matchProps => (
       <React.Fragment>
-        <nav className="mb-4 navbar navbar-expand-lg navbar-dark bg-unique">
-          <a className="navbar-brand" href="#">Navbar</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse"
-                  data-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false"
-                  aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent-3">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <a className="nav-link" href="#">Lifestyle <span className="sr-only">(current)</span></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Beauty</a>
-              </li>
-              <li className="nav-item dropdown active">
-                <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink-3" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Tutorials
-                </a>
-                <div className="dropdown-menu dropdown-menu-right dropdown-unique"
-                     aria-labelledby="navbarDropdownMenuLink-3">
-                  <a className="dropdown-item" href="#">Make-up</a>
-                  <a className="dropdown-item" href="#">Nails</a>
-                  <a className="dropdown-item" href="#">DIY</a>
-                </div>
-              </li>
-            </ul>
-            <ul className="navbar-nav ml-auto nav-flex-icons">
-              <li className="nav-item">
-                <a className="nav-link waves-effect waves-light"><i className="fa fa-twitter" /></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link waves-effect waves-light"><i className="fa fa-google-plus" /></a>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"><i className="fa fa-user" />
-                </a>
-                <div className="dropdown-menu dropdown-menu-right dropdown-unique"
-                     aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="#">Action</a>
-                  <a className="dropdown-item" href="#">Another action</a>
-                  <a className="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <Component {...matchProps} />
-        <h1>Footer</h1>
+        <div className={classes.root}>
+          <CssBaseline/>
+          <Nav classes={classes} open={open} handleDrawerOpen={handleDrawerOpen}/>
+          <Menu classes={classes} open={open} handleDrawerClose={handleDrawerClose} theme={theme}/>
+          <main className={classes.content}>
+            <Paper className={clsx(classes.content, classes.mainContent)}>
+              <Component {...matchProps} />
+            </Paper>
+          </main>
+        </div>
       </React.Fragment>
     )}/>
   )
 }
 
 export default DefaultLayout
-
-// <Component {...matchProps} />

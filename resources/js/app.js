@@ -4,11 +4,14 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
-require('./bootstrap');
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import DefaultLayout from './layouts/DefaultLayout';
+require('./bootstrap')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import DefaultLayout from './layouts/DefaultLayout'
+import User from './components/pages/User'
+import Project from './components/pages/Project'
+import Home from './components/pages/Home'
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -17,23 +20,19 @@ import DefaultLayout from './layouts/DefaultLayout';
  */
 
 export const App = () => {
-    return (
-        <BrowserRouter>
-            <Switch>
-                <DefaultLayout path="/test" component={Test} />
-            </Switch>
-        </BrowserRouter>
-    )
-}
-
-const Test = () => {
-    return (
-        <div>Something good</div>
-    )
+  return (
+    <BrowserRouter>
+      <Switch>
+        <DefaultLayout path="/" exact component={Home}/>
+        <DefaultLayout path="/users" component={User}/>
+        <DefaultLayout path="/projects" component={Project}/>
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
 if (document.getElementById('root')) {
-    ReactDOM.render(<App />, document.getElementById('root'));
+  ReactDOM.render(<App/>, document.getElementById('root'))
 }
 
 // require('./components/Example');
