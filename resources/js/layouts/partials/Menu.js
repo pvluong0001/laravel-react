@@ -2,12 +2,10 @@ import React from 'react'
 import clsx from 'clsx'
 import { Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
-import { Book as BookIcon, Contacts as ContactIcon } from '@material-ui/icons'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
 import menuList from './menu_list'
+import AdapterLink from '../../common/AdapterLink'
 
 function Menu (props) {
   return (
@@ -34,12 +32,7 @@ function Menu (props) {
       <List>
         {
           menuList.map((item, index) => (
-            <ListItem className="menu_item" key={index} button to={item.url} component={
-              React.forwardRef(
-                (props, ref) => (
-                  <NavLink {...props} />
-                )
-              )}
+            <ListItem className="menu_item" key={index} button to={item.url} component={AdapterLink}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.name}/>
